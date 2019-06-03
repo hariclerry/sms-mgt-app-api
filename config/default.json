@@ -1,4 +1,4 @@
 {
-  "jwtPrivateKey": "",
-  "db": "mongodb://localhost/population"
+  "jwtPrivateKey": "clerry",
+  "db": "mongodb://localhost/Sms_db"
 }

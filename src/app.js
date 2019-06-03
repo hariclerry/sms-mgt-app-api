@@ -7,9 +7,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // local imports
-// const routes = require('./routes/routes');
-// require('./startup/db')();
-// require('./startup/config')();
+const routes = require('./routes/routes');
+require('./startup/db')();
+require('./startup/config')();
 
 // initializes express app
 const app = express();
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // inital route
-// routes(app);
+routes(app);
 app.get('/', (req, res) => {
   res.send('Hello user, welcome to SMS management Application');
 });
