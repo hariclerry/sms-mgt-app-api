@@ -28,6 +28,7 @@ module.exports = {
     }
   },
 
+
   /**
    * @function createLocation
    * called when creating a new location
@@ -71,7 +72,6 @@ module.exports = {
     
       const usertoken = req.headers['x-auth-token'];
       const decoded = jwt.verify(usertoken, config.get('jwtPrivateKey'));
-       console.log('savedSms&&&&&&&&', decoded.phoneNumber)
       const contacts = await Contacts.findById(req.params.id);
       if (!contacts)
         return res.status(409).json({
@@ -94,46 +94,42 @@ module.exports = {
       res.status(500).send(error.message);
     }
   },
-  // /**
-  //  * @function updateLocation
-  //  * called when updating a location
-  //  */
-  // async updateLocation(req, res) {
-  //   try {
-  //     const { locationName, numberOfFemale, numberOfMale } = req.body;
-  //     const { locationId } = req.params;
-  //     const { error } = validate(req.body);
-  //     if (error) return res.status(400).send(error.details[0].message);
+  /**
+   * @function updateContact
+   * called when updating a location
+   */
+  async updateContact(req, res) {
+    try {
+      const { contactName } = req.body;
+      const { id } = req.params;
+      // const { error } = validate(req.body);
+      // if (error) return res.status(400).send(error.details[0].message);
 
-  //     if (!mongoose.Types.ObjectId.isValid(locationId)) {
-  //       return res.status(400).send({ message: `Invalid location ID` });
-  //     }
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({ message: `Invalid contact ID` });
+      }
 
-  //     const populationRecord = await MainLocation.findByIdAndUpdate(
-  //       req.params.locationId,
-  //       {
-  //         locationName,
-  //         numberOfFemale,
-  //         numberOfMale
-  //       },
-  //       { new: true }
-  //     );
-  //     populationRecord.total =
-  //       parseInt(numberOfFemale, 10) + parseInt(numberOfMale, 10);
+      const contact = await Contacts.findByIdAndUpdate(
+        req.params.id,
+        {
+          contactName
+        },
+        { new: true }
+      );
 
-  //     const savedPopulation = await populationRecord.save();
+      const savedContact = await contact.save();
 
-  //     if (!populationRecord) {
-  //       return res
-  //         .status(404)
-  //         .send({ message: `Location with ID ${locationId} was not found` });
-  //     }
+      if (!contact) {
+        return res
+          .status(404)
+          .send({ message: `Location with ID ${id} was not found` });
+      }
 
-  //     res.status(200).send({data: savedPopulation, status: 'Success'});
-  //   } catch (error) {
-  //     res.status(500).send(error.message);
-  //   }
-  // },
+      res.status(200).send({data: savedContact, status: 'Success'});
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
 
   /**
    * @function deleteContact
@@ -145,16 +141,63 @@ module.exports = {
       if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).send({ message: `Invalid contact ID` });
       }
-      const populationRecord = await Contacts.findByIdAndRemove(id);
+      const contact = await Contacts.findByIdAndRemove(id);
 
-      if (!populationRecord)
+      if (!contact)
         return res
           .status(404)
-          .send({ message: `Location with ID ${id} was not found` });
+          .send({ message: `Contact with ID ${id} was not found` });
 
       res.status(200).send({
-        message: `Location with ID ${id} deleted successfully`
+        message: `Contact with ID ${id} deleted successfully`
       });
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+// work on this one 
+   /**
+   * @function deleteSms
+   * called when deleting a contact
+   */
+  async deleteSms(req, res) {
+    const { id, smsId } = req.params;
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({ message: `Invalid sms ID` });
+      }
+      const contact = await Contacts.findById(id);
+      const smses = contact.sms.id(smsId)
+      smses.remove()
+      contact.save
+      console.log('savedSms*****', contact)
+
+      // if (!contact)
+      //   return res
+      //     .status(404)
+      //     .send({ message: `Contact with ID ${id} was not found` });
+
+      res.status(200).send({
+        message: `Sms with ID ${id} deleted successfully`
+      });
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+
+  /**
+   * @function fetchSms
+   * called when fetching all location
+   */
+  async fetchSms(req, res) {
+    const { id, smsId } = req.params;
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({ message: `Invalid sms ID` });
+      }
+      const contact = await Contacts.findById(id);
+      const smses = contact.sms.id(smsId)
+      res.status(200).send({data: smses, status: 'Success'});
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -182,4 +225,5 @@ module.exports = {
       res.status(500).send(error.message);
     }
   }
+  
 };

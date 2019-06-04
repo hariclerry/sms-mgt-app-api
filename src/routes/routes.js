@@ -14,7 +14,11 @@
    sendSms,
    deleteContact,
    fetchAllContacts,
-   fetchContact
+   fetchContact,
+   updateContact,
+   deleteSms,
+   fetchSms,
+   
   //  updateLocation,
   //  fetchAllLocations,
   //  fetchLocation,
@@ -43,9 +47,13 @@
    app
      .route('/api/v1/contacts/:id')
      .post(auth, sendSms)
-    //  .put(auth, updateLocation)
+     .patch(auth, updateContact)
      .delete(auth, deleteContact)
      .get(auth, fetchContact);
+  app
+  .route('/api/v1/contacts/:id/:smsId')
+  .delete(auth, deleteSms)
+  .get(auth, fetchSms);
  
   //  //subLocation routes
   //  app
