@@ -23,21 +23,18 @@ function validateUser(user) {
 }
 
 // Validates user login
-// function validateLogin(req) {
-//   const schema = {
-//     email: Joi.string()
-//       .min(5)
-//       .max(255)
-//       .required()
-//       .email(),
-//     password: Joi.string()
-//       .min(5)
-//       .max(255)
-//       .required()
-//   };
+function validateLogin(req) {
+  const schema = {
+    phoneNumber: Joi.number().integer()
+    .required(),
+    password: Joi.string()
+      .min(5)
+      .max(255)
+      .required()
+  };
 
-//   return Joi.validate(req, schema);
-// }
+  return Joi.validate(req, schema);
+}
 
 // Validates locations
 // function validateRecord(record) {
@@ -59,4 +56,4 @@ function validateUser(user) {
 
 // exports.validate = validateRecord;
 exports.validateUser = validateUser;
-// exports.validateLogin = validateLogin;
+exports.validateLogin = validateLogin;

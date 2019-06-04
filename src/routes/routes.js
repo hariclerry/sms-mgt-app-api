@@ -3,19 +3,21 @@
  */
 
  // local imports
-//  const location = require('../controllers/mainLocation');
+ const contacts = require('../controllers/contacts');
 //  const subLocation = require('../controllers/subLocation');
  const users = require('../controllers/users');
-//  const auth = require('../middleware/auth');
+ const auth = require('../middleware/auth');
  
  // constants
-//  const {
-//    createLocation,
-//    updateLocation,
-//    fetchAllLocations,
-//    fetchLocation,
-//    deleteLocation
-//  } = location;
+ const {
+   createContact,
+   sendSms,
+   deleteContact
+  //  updateLocation,
+  //  fetchAllLocations,
+  //  fetchLocation,
+  //  deleteLocation
+ } = contacts;
  
 //  const {
 //    createSubLocation,
@@ -32,14 +34,16 @@
  
  module.exports = app => {
    //mainLocation routes
-  //  app
-  //    .route('/api/v1/location')
-  //    .post(auth, createLocation)
+   app
+     .route('/api/v1/contacts')
+     .post(auth, createContact);
+     
   //    .get(auth, fetchAllLocations);
-  //  app
-  //    .route('/api/v1/location/:locationId')
-  //    .put(auth, updateLocation)
-  //    .delete(auth, deleteLocation)
+   app
+     .route('/api/v1/contacts/:id')
+     .post(auth, sendSms)
+    //  .put(auth, updateLocation)
+     .delete(auth, deleteContact)
   //    .get(auth, fetchLocation);
  
   //  //subLocation routes
