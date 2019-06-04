@@ -12,7 +12,9 @@
  const {
    createContact,
    sendSms,
-   deleteContact
+   deleteContact,
+   fetchAllContacts,
+   fetchContact
   //  updateLocation,
   //  fetchAllLocations,
   //  fetchLocation,
@@ -36,15 +38,14 @@
    //mainLocation routes
    app
      .route('/api/v1/contacts')
-     .post(auth, createContact);
-     
-  //    .get(auth, fetchAllLocations);
+     .post(auth, createContact)
+     .get(auth, fetchAllContacts);
    app
      .route('/api/v1/contacts/:id')
      .post(auth, sendSms)
     //  .put(auth, updateLocation)
      .delete(auth, deleteContact)
-  //    .get(auth, fetchLocation);
+     .get(auth, fetchContact);
  
   //  //subLocation routes
   //  app

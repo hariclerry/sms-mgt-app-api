@@ -15,18 +15,18 @@ const { User } = require('../models/user');
 // const { validate } = require('../utilis/validator');
 
 module.exports = {
-  // /**
-  //  * @function fetchAllLocations
-  //  * called when fetching all location
-  //  */
-  // async fetchAllLocations(req, res) {
-  //   try {
-  //     const populationRecord = await MainLocation.find().sort('locationName');
-  //     res.status(200).send({data: populationRecord, status: 'Success'});
-  //   } catch (error) {
-  //     res.status(500).send(error.message);
-  //   }
-  // },
+  /**
+   * @function fetchAllContacts
+   * called when fetching all location
+   */
+  async fetchAllContacts(req, res) {
+    try {
+      const listOfContacts = await Contacts.find().sort('contactName');
+      res.status(200).send({data: listOfContacts, status: 'Success'});
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
 
   /**
    * @function createLocation
@@ -136,8 +136,8 @@ module.exports = {
   // },
 
   /**
-   * @function deleteLocation
-   * called when deleting a location
+   * @function deleteContact
+   * called when deleting a contact
    */
   async deleteContact(req, res) {
     const { id } = req.params;
@@ -158,39 +158,28 @@ module.exports = {
     } catch (error) {
       res.status(500).send(error.message);
     }
+  },
+
+  /**
+   * @function  fetchContact
+   * called when fetching a single contact
+   */
+  async fetchContact(req, res) {
+    const { id } = req.params;
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({ message: `Invalid Contact ID` });
+      }
+      const contact = await Contacts.findById(id);
+
+      if (!contact.id) {
+        return res
+          .status(404)
+          .send({ message: `Contact with ID ${id} was not found` });
+      }
+      res.send({data: contact, status: 'Success'});
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
   }
-
-  // /**
-  //  * @function fetchLocation
-  //  * called when fetching a single location
-  //  */
-  // async fetchLocation(req, res) {
-  //   const { locationId } = req.params;
-  //   try {
-  //     if (!mongoose.Types.ObjectId.isValid(locationId)) {
-  //       return res.status(400).send({ message: `Invalid location ID` });
-  //     }
-  //     const populationRecord = await MainLocation.findById(locationId);
-
-  //     if (!populationRecord.id) {
-  //       return res
-  //         .status(404)
-  //         .send({ message: `Location with ID ${locationId} was not found` });
-  //     }
-  //     if (populationRecord.subLocation && populationRecord.subLocation.length) {
-  //       populationRecord.total =
-  //         populationRecord.subLocation.reduce((acc, subPopulation) => {
-  //           return acc + subPopulation.subTotal;
-  //         }, 0) +
-  //         populationRecord.numberOfFemale +
-  //         populationRecord.numberOfMale;
-  //     } else {
-  //       populationRecord.total =
-  //         populationRecord.numberOfFemale + populationRecord.numberOfMale;
-  //     }
-  //     res.send({data: populationRecord, status: 'Success'});
-  //   } catch (error) {
-  //     res.status(500).send(error.message);
-  //   }
-  // }
 };
