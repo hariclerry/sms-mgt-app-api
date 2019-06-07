@@ -5,7 +5,7 @@
 //Third party imports
 const Joi = require('joi');
 
-// Validates user registration
+// Validate user registration
 function validateUser(user) {
   const schema = {
     name: Joi.string()
@@ -22,7 +22,7 @@ function validateUser(user) {
   return Joi.validate(user, schema);
 }
 
-// Validates user login
+// Validate user login
 function validateLogin(req) {
   const schema = {
     phoneNumber: Joi.number().integer()
@@ -36,24 +36,47 @@ function validateLogin(req) {
   return Joi.validate(req, schema);
 }
 
-// Validates locations
-// function validateRecord(record) {
-//   const schema = {
-//     locationName: Joi.string()
-//       .min(3)
-//       .max(50)
-//       .required(),
-//     numberOfFemale: Joi.number()
-//       .integer()
-//       .required(),
-//     numberOfMale: Joi.number()
-//       .integer()
-//       .required()
-//   };
+// Validate contact
+function validateContact(record) {
+  const schema = {
+    contactName: Joi.string()
+      .min(3)
+      .max(15)
+      .required(),
+    contactNumber: Joi.number()
+      .integer()
+      .required()
+  };
 
-//   return Joi.validate(record, schema);
-// }
+  return Joi.validate(record, schema);
+}
 
-// exports.validate = validateRecord;
+// Validate update contact
+function validateUpdateContact(record) {
+  const schema = {
+    contactName: Joi.string()
+      .min(3)
+      .max(15)
+      .required()
+  };
+
+  return Joi.validate(record, schema);
+}
+
+// Validate sms
+function validateSms(record) {
+  const schema = {
+    content: Joi.string()
+      .min(3)
+      .max(60)
+      .required()
+  };
+
+  return Joi.validate(record, schema);
+}
+
+exports.validate = validateContact;
+exports.validateUpdateContact = validateUpdateContact;
+exports.validateSms = validateSms;
 exports.validateUser = validateUser;
 exports.validateLogin = validateLogin;

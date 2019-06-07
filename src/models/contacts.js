@@ -1,5 +1,5 @@
 /**
- * @file creates the sub location schema
+ * @file creates the contact schema
  */
 
 // Third party imports

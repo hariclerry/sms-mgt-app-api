@@ -26,13 +26,9 @@ const smsSchema = Schema({
     required: true
   },
   status: {
-    type: Boolean,
-    required: true
+    type: String,
+    default: 'Sent'
   },
-  // user: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User'
-  // } ,
   created: {
     type: Date,
     default: Date.now
