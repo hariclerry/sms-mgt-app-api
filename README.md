@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hariclerry/sms-mgt-app-api.svg?branch=master)](https://travis-ci.org/hariclerry/sms-mgt-app-api)
+
 # SMS Management APP
 
  SMS Management APP is a system that stores and manages contacts records and sends SMS.
