@@ -14,7 +14,6 @@ const Sms = require('../models/sms');
 const { validateSms } = require('../utilis/validator');
 
 module.exports = {
-
   /**
    * @function sendSms
    * called when sending a new sms
@@ -24,7 +23,7 @@ module.exports = {
       const { content } = req.body;
       const { error } = validateSms(req.body);
       if (error) return res.status(400).send(error.details[0].message);
-    
+
       const usertoken = req.headers['x-auth-token'];
       const decoded = jwt.verify(usertoken, config.get('jwtPrivateKey'));
       const contacts = await Contacts.findById(req.params.contactId);
@@ -36,7 +35,7 @@ module.exports = {
       let newSms = new Sms({
         content
       });
-      newSms.senderNumber = decoded.phoneNumber
+      newSms.senderNumber = decoded.phoneNumber;
       newSms.receiverNumber = contacts.contactNumber;
 
       contacts.sms.push(newSms);
@@ -49,8 +48,7 @@ module.exports = {
     }
   },
 
-// work on this one 
-   /**
+  /**
    * @function deleteSms
    * called when deleting a sms
    */
@@ -61,8 +59,8 @@ module.exports = {
         return res.status(400).send({ message: `Invalid sms ID` });
       }
       const contact = await Contacts.findById(contactId);
-      const smses = contact.sms.id(smsId)
-      smses.remove()
+      const smses = contact.sms.id(smsId);
+      smses.remove();
       contact.save();
 
       if (!contact)
@@ -70,7 +68,9 @@ module.exports = {
           .status(404)
           .send({ message: `Contact with ID ${contactId} was not found` });
 
-      res.status(200).send({ message: `Sms with ID ${smsId} deleted successfully` });
+      res
+        .status(200)
+        .send({ message: `Sms with ID ${smsId} deleted successfully` });
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -87,11 +87,10 @@ module.exports = {
         return res.status(400).send({ message: `Invalid contact ID` });
       }
       const contact = await Contacts.findById(contactId);
-      const smses = contact.sms.id(smsId)
-      res.status(200).send({data: smses, status: 'Success'});
+      const smses = contact.sms.id(smsId);
+      res.status(200).send({ data: smses, status: 'Success' });
     } catch (error) {
       res.status(500).send(error.message);
     }
-  },
-  
+  }
 };

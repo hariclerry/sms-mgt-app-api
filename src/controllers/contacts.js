@@ -18,12 +18,11 @@ module.exports = {
   async fetchAllContacts(req, res) {
     try {
       const listOfContacts = await Contacts.find().sort('contactName');
-      res.status(200).send({data: listOfContacts, status: 'Success'});
+      res.status(200).send({ data: listOfContacts, status: 'Success' });
     } catch (error) {
       res.status(500).send(error.message);
     }
   },
-
 
   /**
    * @function createContact
@@ -57,7 +56,7 @@ module.exports = {
   /**
    * @function updateContact
    * called when updating a contact
-   */
+  */
   async updateContact(req, res) {
     try {
       const { contactName } = req.body;
@@ -85,7 +84,7 @@ module.exports = {
           .send({ message: `contact with ID ${contactId} was not found` });
       }
 
-      res.status(200).send({data: savedContact, status: 'Success'});
+      res.status(200).send({ data: savedContact, status: 'Success' });
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -101,7 +100,7 @@ module.exports = {
       if (!mongoose.Types.ObjectId.isValid(contactId)) {
         return res.status(400).send({ message: `Invalid contact ID` });
       }
-      const contact = await Contacts.findByIdAndRemove(id);
+      const contact = await Contacts.findByIdAndRemove(contactId);
 
       if (!contact)
         return res
@@ -133,10 +132,9 @@ module.exports = {
           .status(404)
           .send({ message: `Contact with ID ${contactId} was not found` });
       }
-      res.send({data: contact, status: 'Success'});
+      res.send({ data: contact, status: 'Success' });
     } catch (error) {
       res.status(500).send(error.message);
     }
   }
-  
 };
