@@ -30,7 +30,7 @@ module.exports = {
       await user.save();
 
       res.status(201).send({
-        user: { userId: user._id, Name: user.name, Email: user.email },
+        user: { userId: user._id, Name: user.name, phoneNumber: user.phoneNumber },
         message: 'Successfully registered'
       });
     } catch (error) {
@@ -50,7 +50,7 @@ module.exports = {
 
       let user = await User.findOne({ phoneNumber });
       if (!user)
-        return res.status(400).send({ message: 'Invalid email or password.' });
+        return res.status(400).send({ message: 'Invalid phoneNumber or password.' });
 
       const validPassword = await bcrypt.compare(password, user.password);
       if (!validPassword)
