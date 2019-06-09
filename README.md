@@ -53,7 +53,7 @@ Input `http:127.0.0.1:3000/` followed by any of the following endpoints to demo 
 |POST/api/v1/user|Creates a new user account|
 |POST/api/v1/user/login|Logs in a user|
 |POST/api/v1/contacts|Creates a new contact|
-|PUT/api/v1/contacts/:contactId|Updates a contact|
+|PATCH/api/v1/contacts/:contactId|Updates a contact|
 |DELETE/api/v1/contacts/:contactId|Removes a contact|
 |GET/api/v1/contacts|Retrieves all contacts|
 |GET/api/v1/contacts/:contactId|Gets a contact|
@@ -62,9 +62,9 @@ Input `http:127.0.0.1:3000/` followed by any of the following endpoints to demo 
 |GET/api/v1/contactS/:contactId/sms/:smsId|Gets a sms|
 
 ### Checkout the live app on heroku
-Heroku link: TODO
+Heroku link: https://population-mgt-sys.herokuapp.com/
 
 ### API Documentation with POSTMAN
-Test the API with Postman here: TODO
+Test the API with Postman here: https://documenter.getpostman.com/view/7685370/S1TZyFts
 
 The API is written in Node.Js using the Express framework and mongoDB as the database dialect.
