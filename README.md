@@ -62,7 +62,7 @@ Input `http:127.0.0.1:3000/` followed by any of the following endpoints to demo 
 |GET/api/v1/contactS/:contactId/sms/:smsId|Gets a sms|
 
 ### Checkout the live app on heroku
-Heroku link: https://population-mgt-sys.herokuapp.com/
+Heroku link: https://sms-mgt-app-api.herokuapp.com/
 
 ### API Documentation with POSTMAN
 Test the API with Postman here: https://documenter.getpostman.com/view/7685370/S1TZyFts
