@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose --detectOpenHandles --forceExit --coverage",
-    "build": "babel  src/ -d dist/",
     "start": "node src/index.js"
   },
   "engines": {
