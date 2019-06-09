@@ -18,6 +18,7 @@ const app = express();
 app.use(bodyParser.raw());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+require('./startup/prod')(app);
 
 // inital route
 routes(app);
