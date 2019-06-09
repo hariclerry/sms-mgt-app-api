@@ -28,8 +28,8 @@ module.exports = {
       const decoded = jwt.verify(usertoken, config.get('jwtPrivateKey'));
       const contacts = await Contacts.findById(req.params.contactId);
       if (!contacts)
-        return res.status(409).json({
-          message: `Contact with already exists`
+        return res.status(404).json({
+          message: `Contact with given ID does not exist`
         });
 
       let newSms = new Sms({
