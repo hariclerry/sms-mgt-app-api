@@ -3,8 +3,7 @@
 
 # SMS Management APP
 
- SMS Management APP is a system that stores and manages contacts records and sends SMS.
-
+ SMS Management APP is a system that creates and stores contacts, it is used to send SMS to available cotacts.
 
 ### FEATURES
 
@@ -53,21 +52,19 @@ Input `http:127.0.0.1:3000/` followed by any of the following endpoints to demo 
 |---------|------------|
 |POST/api/v1/user|Creates a new user account|
 |POST/api/v1/user/login|Logs in a user|
-|POST/api/v1/contact|Creates a new contact|
-|PUT/api/v1/contact/:contactId|Updates a contact|
-|DELETE/api/v1/busicontactnesses/:contactId|Removes a contact|
-|GET/api/v1/contact|Retrieves all contacts|
-|GET/api/v1/contact/:contactId|Gets a contact|
-|POST/api/v1/contactId/sub|Creates a new sub contact|
-|PUT/api/v1/contact/:contactId/sub/:id|Updates a contact|
-|DELETE/api/v1/contact/:contactId/sub/:id|Removes a contact|
-|GET/api/v1/contact/:contactId/sub|Retrieves all sub contacts|
-|GET/api/v1/contact/:contactId/sub/:id|Gets a sub contact|
+|POST/api/v1/contacts|Creates a new contact|
+|PUT/api/v1/contacts/:contactId|Updates a contact|
+|DELETE/api/v1/contacts/:contactId|Removes a contact|
+|GET/api/v1/contacts|Retrieves all contacts|
+|GET/api/v1/contacts/:contactId|Gets a contact|
+|POST/api/v1/contactId/sms|Sends sms to a contact|
+|DELETE/api/v1/contactS/:contactId/sms/:smsId|Removes a contact|
+|GET/api/v1/contactS/:contactId/sms/:smsId|Gets a sms|
 
 ### Checkout the live app on heroku
-Heroku link: https://population-mgt-sys.herokuapp.com/
+Heroku link: TODO
 
 ### API Documentation with POSTMAN
-Test the API with Postman here https://documenter.getpostman.com/view/7685370/S1TVXHpW
+Test the API with Postman here: TODO
 
 The API is written in Node.Js using the Express framework and mongoDB as the database dialect.
