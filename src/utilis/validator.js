@@ -9,7 +9,7 @@ const Joi = require('joi');
 function validateUser(user) {
   const schema = {
     name: Joi.string()
-      .min(5)
+      .min(3)
       .max(50)
       .required(),
     phoneNumber: Joi.number().integer()

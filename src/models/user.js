@@ -43,7 +43,7 @@ const userSchema = Schema({
  * called generating token
  */
 userSchema.methods.generateAuthToken = function() {
-  const token = jwt.sign({ _id: this._id, phoneNumber: this.phoneNumber }, config.get('jwtPrivateKey'));
+  const token = jwt.sign({ _id: this._id, phoneNumber: this.phoneNumber, name: this.name }, config.get('jwtPrivateKey'));
   return token;
 };
 

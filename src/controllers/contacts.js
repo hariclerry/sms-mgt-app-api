@@ -18,7 +18,7 @@ module.exports = {
   async fetchAllContacts(req, res) {
     try {
       const listOfContacts = await Contacts.find().sort('contactName');
-      res.status(200).send({ data: listOfContacts, status: 'Success' });
+      res.status(200).send(listOfContacts);
     } catch (error) {
       res.status(500).send(error.message);
     }

@@ -3,6 +3,7 @@
  */
 
 // Third party imports
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -15,6 +16,7 @@ require('./startup/config')();
 const app = express();
 
 // third party middleware
+app.use(cors());
 app.use(bodyParser.raw());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
