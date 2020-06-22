@@ -21,6 +21,14 @@ const contactSchema = Schema({
     type: Number,
     required: true
   },
+  userName: {
+    type: String,
+    required: true
+  },
+  userId: {
+    type: String,
+    required: true
+  },
   sms: [smsSchema],
   created: {
     type: Date,

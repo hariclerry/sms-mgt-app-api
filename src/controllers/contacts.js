@@ -4,11 +4,13 @@
  */
 
 //Third party imports
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 // local imports
-const Contacts = require('../models/contacts');
-const { validate, validateUpdateContact } = require('../utilis/validator');
+const Contacts = require("../models/contacts");
+const { validate, validateUpdateContact } = require("../utilis/validator");
 
 module.exports = {
   /**
@@ -17,8 +19,11 @@ module.exports = {
    */
   async fetchAllContacts(req, res) {
     try {
-      const listOfContacts = await Contacts.find().sort('contactName');
-      res.status(200).send({ data: listOfContacts, status: 'Success' });
+      const usertoken = req.headers["x-auth-token"];
+      const user = jwt.verify(usertoken, config.get("jwtPrivateKey"));
+
+      const contacts = await Contacts.find({ userId: user._id }).sort("contactName");
+      res.status(200).send(contacts);
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -37,17 +42,22 @@ module.exports = {
       const contacts = await Contacts.findOne({ contactNumber });
       if (contacts)
         return res.status(409).json({
-          message: `Contact with ${contactNumber} already exists`
+          message: `Contact with ${contactNumber} already exists`,
         });
+
+      const usertoken = req.headers["x-auth-token"];
+      const user = jwt.verify(usertoken, config.get("jwtPrivateKey"));
 
       let newContact = new Contacts({
         contactName,
-        contactNumber
+        contactNumber,
       });
+      newContact.userName = user.name;
+      newContact.userId = user._id;
 
       const savedContact = await newContact.save();
 
-      res.status(201).send({ data: savedContact, status: 'Success' });
+      res.status(201).send({ data: savedContact, status: "Success" });
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -56,7 +66,7 @@ module.exports = {
   /**
    * @function updateContact
    * called when updating a contact
-  */
+   */
   async updateContact(req, res) {
     try {
       const { contactName } = req.body;
@@ -71,7 +81,7 @@ module.exports = {
       const contact = await Contacts.findByIdAndUpdate(
         req.params.contactId,
         {
-          contactName
+          contactName,
         },
         { new: true }
       );
@@ -84,7 +94,7 @@ module.exports = {
           .send({ message: `contact with ID ${contactId} was not found` });
       }
 
-      res.status(200).send({ data: savedContact, status: 'Success' });
+      res.status(200).send({ data: savedContact, status: "Success" });
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -108,7 +118,7 @@ module.exports = {
           .send({ message: `Contact with ID ${contactId} was not found` });
 
       res.status(200).send({
-        message: `Contact with ID ${contactId} deleted successfully`
+        message: `Contact with ID ${contactId} deleted successfully`,
       });
     } catch (error) {
       res.status(500).send(error.message);
@@ -132,9 +142,9 @@ module.exports = {
           .status(404)
           .send({ message: `Contact with ID ${contactId} was not found` });
       }
-      res.send({ data: contact, status: 'Success' });
+      res.send({ data: contact, status: "Success" });
     } catch (error) {
       res.status(500).send(error.message);
     }
-  }
+  },
 };
