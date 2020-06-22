@@ -20,7 +20,8 @@ const {
  const {
   sendSms,
   deleteSms,
-  fetchSms
+  fetchSms,
+  fetchAllSms
  } = sms;
 
 const { createUser, loginUser } = users;
@@ -42,6 +43,7 @@ module.exports = app => {
   app
   .route('/api/v1/contacts/:contactId/sms')
   .post(auth, sendSms)
+  .get(auth, fetchAllSms)
   app
     .route('/api/v1/contacts/:contactId/sms/:smsId')
     .delete(auth, deleteSms)

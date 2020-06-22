@@ -92,5 +92,21 @@ module.exports = {
     } catch (error) {
       res.status(500).send(error.message);
     }
+  },
+
+   /**
+   * @method fetchAllSms
+   * called when fetching books
+   */
+
+  async fetchAllSms(req, res) {
+    const { contactId } = req.params;
+    try {
+      const contact = await Contacts.findById(contactId);
+      const sms = await contact.sms;
+      res.status(200).send(sms);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
   }
 };
